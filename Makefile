@@ -10,4 +10,4 @@ run: all
 	bin/controller
 
 clean: 
-	rm bin/*
+	rm bin/controller
