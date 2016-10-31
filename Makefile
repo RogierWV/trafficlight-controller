@@ -2,12 +2,15 @@ HEADERS=src/light.hpp src/node.hpp
 SOURCES=src/main.cpp src/light.cpp src/node.cpp
 CXXFLAGS+=-std=c++11 -pthread -Isrc
 CXX=g++
+OUT=bin/controller
 
-all: $(HEADERS) $(SOURCES)
-	$(CXX) $(SOURCES) $(CXXFLAGS) -o bin/controller
+all: $(OUT)
 
-run: all
-	bin/controller
+$(OUT): $(HEADERS) $(SOURCES)
+	$(CXX) $(SOURCES) $(CXXFLAGS) -o $(OUT)
+
+run: $(OUT)
+	$(OUT)
 
 clean: 
-	rm bin/controller
+	rm $(OUT) 
