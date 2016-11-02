@@ -4,11 +4,11 @@ import (
 	"flag"
 	"net/http"
 	"github.com/gorilla/websocket"
-	// "fmt"
+	"fmt"
 	"log"
 )
 
-var addr = flag.String("addr", "localhost:8080", "http service address")
+var addr = flag.String("addr", "0.0.0.0:3000", "http service address")
 var upgrader = websocket.Upgrader{} // use default options
 
 func echo(w http.ResponseWriter, r *http.Request) {
@@ -25,6 +25,10 @@ func echo(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 		log.Printf("recv: %s", message)
+
+		// LOGIC
+		
+
 		err = c.WriteMessage(mt, message)
 		if err != nil {
 			log.Println("write:", err)
@@ -37,5 +41,6 @@ func main() {
 	flag.Parse()
 	log.SetFlags(0)
 	http.HandleFunc("/", echo)
+	fmt.Println("listening on ", *addr)
 	log.Fatal(http.ListenAndServe(*addr, nil))
 }
