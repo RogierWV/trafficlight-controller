@@ -1,5 +1,5 @@
 # Kruispunt controller
-Controller voor kruispunt opdracht.
+Controller for kruispunt assignment.
 
 ## Dependencies
 - [Go](https://golang.org)
