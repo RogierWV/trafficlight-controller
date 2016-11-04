@@ -1,5 +1,8 @@
 package main
 
+// Test value:
+// {"state":[{"trafficLight":"1","count":"1"}]}
+
 import (
 	"flag"
 	"net/http"
@@ -7,25 +10,25 @@ import (
 	"fmt"
 	"log"
 	"encoding/json"
-	"bytes"
+	// "bytes"
 )
 
 type ControllerState struct {
-	State []ControllerStateSub `json=state`
+	State []ControllerStateSub `json:"state"`
 }
 
 type ControllerStateSub struct {
-	TrafficLight int `json=trafficLight`
-	Status string `json=status`
+	TrafficLight int `json:"trafficLight"`
+	Status string `json:"status"`
 }
 
 type SimulatorState struct {
-	State []SimulatorStateSub `json=state`
+	State []SimulatorStateSub `json:"state"`
 } 
 
 type SimulatorStateSub struct {
-	TrafficLight int `json=trafficLight`
-	Count int `json=count`
+	TrafficLight int `json:"trafficLight"`
+	Count int `json:"count"`
 }
 
 var addr = flag.String("addr", "0.0.0.0:3000", "http service address")
@@ -52,13 +55,13 @@ func echo(w http.ResponseWriter, r *http.Request) {
 		log.Printf("recv: %s", message)
 
 		// LOGIC
-		inDec := json.NewDecoder(bytes.NewReader(message))
-		err = inDec.Decode(&simState)
+		// inDec := json.NewDecoder(bytes.NewReader(message))
+		err = json.Unmarshal(message, &simState)
 		if err != nil {
 			log.Fatal(err)
 		}
 		contrState = ControllerState{ State: []ControllerStateSub{ ControllerStateSub{TrafficLight: simState.State[0].TrafficLight, Status:"green"} }  }
-		message, err = json.Marshall(&contrState)
+		message, err = json.Marshal(&contrState)
 		if err != nil {
 			log.Fatal(err)
 		}
