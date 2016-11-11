@@ -1,7 +1,10 @@
 package main
 
 // Test value:
-// {"state":[{"trafficLight":"1","count":"1"}]}
+// {"state":[{"trafficLight":1,"count":1}]}
+// {"state":[{"trafficLight":30,"count":10},{"trafficLight":21,"count":1}]}
+// Expected return value:
+// {"state":[{"trafficLight":1,"status":"green"}]}
 
 import (
 	"flag"

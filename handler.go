@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"github.com/gorilla/websocket"
 	"log"
-	"encoding/json"
 )
 
 var upgrader = websocket.Upgrader{
@@ -12,8 +11,12 @@ var upgrader = websocket.Upgrader{
 }
 
 func HandleWS(c *websocket.Conn) {
-	var simState SimulatorState
-	var contrState ControllerState
+
+	msgChannel := make(chan []byte)
+	outputChannel := make(chan []byte)
+
+	go process_simstate(msgChannel, outputChannel)
+	go write(outputChannel, c)
 
 	for {
 		mt, message, err := c.ReadMessage()
@@ -21,25 +24,13 @@ func HandleWS(c *websocket.Conn) {
 			log.Println("read:", err)
 			break
 		}
-		log.Printf("recv: %s", message)
-
-		// LOGIC
-		// inDec := json.NewDecoder(bytes.NewReader(message))
-		err = json.Unmarshal(message, &simState)
-		if err != nil {
-			log.Fatal(err)
-		}
-		contrState = ControllerState{ State: []ControllerStateSub{ ControllerStateSub{TrafficLight: simState.State[0].TrafficLight, Status:"green"} }  }
-		message, err = json.Marshal(&contrState)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		err = c.WriteMessage(mt, message)
-		if err != nil {
-			log.Println("write:", err)
+		if mt != 0x1 {
+			log.Println("read: incorrect frame type")
 			break
 		}
+		// log.Printf("recv: %s", message)
+
+		msgChannel <- message
 	}
 }
 
