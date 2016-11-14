@@ -1,16 +1,17 @@
 package main
 
+// import "log"
+
 func manage_state(queue <-chan StateModCommand) {
 	contrState := ControllerState{ State: make ([]ControllerStateSub, 40) }
 	set_all_red(&contrState)
 	for {
-		select {
-			case command := <- queue:
-				if command.ReadOnly {
-					command.Ret<-contrState
-				} else {
-					command.Modifier(&contrState, command.Ret)
-				}
+		command := <- queue
+		// log.Println(command)
+		if command.ReadOnly {
+			go func() {command.Ret<-contrState}()
+		} else {
+			go command.Modifier(&contrState, command.Ret)
 		}
 	}
 }

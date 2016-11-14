@@ -12,12 +12,18 @@ var upgrader = websocket.Upgrader{
 
 func HandleWS(c *websocket.Conn) {
 
-	msgChannel := make(chan []byte)
-	outputChannel := make(chan []byte)
-	stateChannel := make(chan StateModCommand)
+	msgChannel := make(chan []byte, 1)
+	outputChannel := make(chan bool, 1)
+	stateChannel := make(chan StateModCommand, 10)
+	yellowChannel := make(chan int, 1)
+	redChannel := make(chan int, 1)
 
-	go process_simstate(msgChannel, outputChannel, stateChannel)
-	go write(outputChannel, c)
+
+	go manage_state(stateChannel)
+	go process_simstate(msgChannel, outputChannel, stateChannel, yellowChannel)
+	go write(outputChannel, stateChannel, c)
+	go time_to_yellow(yellowChannel, outputChannel, stateChannel, redChannel)
+	go time_to_red(redChannel, outputChannel, stateChannel)
 
 	for {
 		mt, message, err := c.ReadMessage()

@@ -3,10 +3,9 @@ package main
 import (
 	"encoding/json"
 	"log"
-	"fmt"
 )
 
-func process_simstate(msg <-chan []byte, out chan<- []byte, state chan<- StateModCommand) {
+func process_simstate(msg <-chan []byte, out chan<- bool, state chan<- StateModCommand, timer chan<- int) {
 	var simState SimulatorState
 
 	retChan := make (chan ControllerState)
@@ -19,7 +18,7 @@ func process_simstate(msg <-chan []byte, out chan<- []byte, state chan<- StateMo
 			log.Fatal(err)
 		}
 
-		green := SimulatorStateSub{-1,-1}
+		green := SimulatorStateSub{-1,0}
 
 		//set a green light
 		for _,e := range simState.State {
@@ -32,22 +31,19 @@ func process_simstate(msg <-chan []byte, out chan<- []byte, state chan<- StateMo
 			state <- StateModCommand{
 				false,
 				func(contrState *ControllerState, ret chan<- ControllerState){
-					fmt.Println("mod started")
-					set_all_red(contrState)
+					// set_all_red(contrState)
 					(*contrState).State[green.TrafficLight].Status = "green"
 					ret <- (*contrState)
 				},
 				retChan,
 			}
+
+			timer <- green.TrafficLight
 		}
 
-		contrState := <-retChan
+		// contrState := <-retChan
 
-		newmessage, err := json.Marshal(&contrState)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		out <- newmessage
+		
+		out <- true
 	}
 }
