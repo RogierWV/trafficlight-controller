@@ -13,6 +13,8 @@ import (
 	"log"
 )
 
+import _ "net/http/pprof"
+
 var addr = flag.String("addr", "0.0.0.0:3000", "http service address")
 
 func main() {

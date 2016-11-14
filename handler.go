@@ -14,8 +14,9 @@ func HandleWS(c *websocket.Conn) {
 
 	msgChannel := make(chan []byte)
 	outputChannel := make(chan []byte)
+	stateChannel := make(chan StateModCommand)
 
-	go process_simstate(msgChannel, outputChannel)
+	go process_simstate(msgChannel, outputChannel, stateChannel)
 	go write(outputChannel, c)
 
 	for {

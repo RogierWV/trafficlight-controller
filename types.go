@@ -17,3 +17,9 @@ type SimulatorStateSub struct {
 	TrafficLight int `json:"trafficLight"`
 	Count int `json:"count"`
 }
+
+type StateModCommand struct {
+	ReadOnly bool
+	Modifier func(contrState *ControllerState, ret chan<- ControllerState)
+	Ret chan<- ControllerState
+}
