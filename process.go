@@ -15,7 +15,7 @@ func process_simstate(msg <-chan []byte, out chan<- bool, state chan<- StateModC
 
 		err := json.Unmarshal(message, &simState)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 
 		green := SimulatorStateSub{-1,0}
@@ -32,7 +32,7 @@ func process_simstate(msg <-chan []byte, out chan<- bool, state chan<- StateModC
 				false,
 				func(contrState *ControllerState, ret chan<- ControllerState){
 					// set_all_red(contrState)
-					(*contrState).State[green.TrafficLight].Status = "green"
+						(*contrState).State[green.TrafficLight] = ControllerStateSub{green.TrafficLight,"green"}
 					ret <- (*contrState)
 				},
 				retChan,

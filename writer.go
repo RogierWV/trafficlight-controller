@@ -14,11 +14,11 @@ func write(msg <-chan bool, state chan StateModCommand, c *websocket.Conn) {
 		state <- StateModCommand{true,nil,read}
 		message, err := json.Marshal(<-read)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 		err = c.WriteMessage(0x1, message)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 		}
 	}	
 }

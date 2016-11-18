@@ -18,7 +18,6 @@ func HandleWS(c *websocket.Conn) {
 	yellowChannel := make(chan int, 1)
 	redChannel := make(chan int, 1)
 
-
 	go manage_state(stateChannel)
 	go process_simstate(msgChannel, outputChannel, stateChannel, yellowChannel)
 	go write(outputChannel, stateChannel, c)
@@ -48,5 +47,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer c.Close()
+	log.Println("connected")
 	HandleWS(c)
 }

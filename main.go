@@ -22,5 +22,5 @@ func main() {
 	log.SetFlags(0)
 	http.HandleFunc("/", handler)
 	fmt.Println("listening on ", *addr)
-	log.Fatal(http.ListenAndServe(*addr, nil))
+	log.Println(http.ListenAndServe(*addr, nil))
 }
