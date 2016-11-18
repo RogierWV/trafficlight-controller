@@ -16,7 +16,7 @@ func write(msg <-chan bool, state chan StateModCommand, c *websocket.Conn) {
 		if err != nil {
 			log.Println(err)
 		}
-		err = c.WriteMessage(0x1, message)
+		err = c.WriteMessage((*frameType), message)
 		if err != nil {
 			log.Println(err)
 		}

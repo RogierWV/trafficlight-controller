@@ -30,7 +30,7 @@ func HandleWS(c *websocket.Conn) {
 			log.Println("read:", err)
 			break
 		}
-		if mt != 0x1 {
+		if mt != (*frameType) {
 			log.Println("read: incorrect frame type")
 			break
 		}
