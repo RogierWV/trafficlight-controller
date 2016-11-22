@@ -3,7 +3,7 @@ package main
 // import "log"
 
 func manage_state(queue <-chan StateModCommand) {
-	contrState := ControllerState{ State: make ([]ControllerStateSub, 40) }
+	contrState := ControllerState{ State: make ([]ControllerStateSub, 50) }
 	set_all_red(&contrState)
 	for {
 		command := <- queue
