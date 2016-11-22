@@ -21,4 +21,5 @@ func _timer(grID int, out chan<- bool, state chan<- StateModCommand, colour stri
 func timer (grID int, out chan<- bool, state chan<- StateModCommand) {
 	_timer(grID, out, state, "yellow")
 	_timer(grID, out, state, "red")
+	time.Sleep(time.Duration(*redTime)*time.Second)
 }

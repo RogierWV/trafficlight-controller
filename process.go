@@ -53,6 +53,6 @@ func process_simstate(msg <-chan []byte, out chan<- bool, state chan<- StateModC
 		}
 
 		out <- true
-		go timer(groupId, out, state)
+		timer(groupId, out, state)
 	}
 }
