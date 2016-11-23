@@ -1,37 +1,24 @@
 package main
 
-import (
-	"encoding/json"
-	"log"
-)
+// import (
+// 	"encoding/json"
+// 	"log"
+// )
 
-func process_simstate(msg <-chan []byte, out chan<- bool, state chan<- StateModCommand) {
-	simState := SimulatorState{make([]SimulatorStateSub, 50)}
-	for i := 0; i < len(simState.State); i++ {
-		simState.State[i] = SimulatorStateSub{i,0}
-	}
-
+func process_simstate(out chan<- bool, contrState chan<- ContrStateModCommand, simState chan<- SimStateModCommand) {
+	simStateRet := make(chan SimulatorState)
 	for {
-		message := <-msg
-
-		var tmpSimState SimulatorState
-
-		err := json.Unmarshal(message, &tmpSimState)
-		if err != nil {
-			log.Println(err)
-		}
-
-		for _,e := range tmpSimState.State {
-			simState.State[e.TrafficLight] = e
-		}
+		simState <- SimStateModCommand {true, nil, simStateRet}
 
 		highestTotal := 0
 		groupId := -1
 
+		tmpSimState := <- simStateRet
+
 		for i := 0; i < len(lightGroups); i++ {
 			total := 0
 			for j := 0; j < len(lightGroups[i]); j++ {
-				total += simState.State[lightGroups[i][j]].Count 
+				total += tmpSimState.State[lightGroups[i][j]].Count 
 			}
 			if total > highestTotal {
 				highestTotal = total
@@ -40,7 +27,7 @@ func process_simstate(msg <-chan []byte, out chan<- bool, state chan<- StateModC
 		}
 
 		if groupId != -1 {
-			state <- StateModCommand {
+			contrState <- ContrStateModCommand {
 				false,
 				func(contrState *ControllerState, ret chan<- ControllerState){
 					for _,e := range lightGroups[groupId] {
@@ -49,10 +36,8 @@ func process_simstate(msg <-chan []byte, out chan<- bool, state chan<- StateModC
 				},
 				nil,
 			}
-
+			out <- true
+			timer(groupId, out, contrState)
 		}
-
-		out <- true
-		timer(groupId, out, state)
 	}
 }

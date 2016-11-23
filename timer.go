@@ -4,9 +4,12 @@ import (
 	"time"
 )
 
-func _timer(grID int, out chan<- bool, state chan<- StateModCommand, colour string) {
+func _timer(grID int, out chan<- bool, state chan<- ContrStateModCommand, colour string) {
+	// if grID == -1 {
+	// 	return
+	// }
 	time.Sleep(3*time.Second)
-	state <- StateModCommand {
+	state <- ContrStateModCommand {
 		false,
 		func(contrState *ControllerState, ret chan<- ControllerState){
 			for i := 0; i < len(lightGroups[grID]); i++ {
@@ -18,7 +21,7 @@ func _timer(grID int, out chan<- bool, state chan<- StateModCommand, colour stri
 	out <- true
 }
 
-func timer (grID int, out chan<- bool, state chan<- StateModCommand) {
+func timer (grID int, out chan<- bool, state chan<- ContrStateModCommand) {
 	_timer(grID, out, state, "yellow")
 	_timer(grID, out, state, "red")
 	time.Sleep(time.Duration(*redTime)*time.Second)

@@ -6,12 +6,12 @@ import (
 	"encoding/json"
 )
 
-func write(msg <-chan bool, state chan StateModCommand, c *websocket.Conn) {
+func write(msg <-chan bool, state chan ContrStateModCommand, c *websocket.Conn) {
 	read := make(chan ControllerState, 1)
 	for {
 		<-msg
 		log.Println("start write")
-		state <- StateModCommand{true,nil,read}
+		state <- ContrStateModCommand{true,nil,read}
 		message, err := json.Marshal(<-read)
 		if err != nil {
 			log.Println(err)

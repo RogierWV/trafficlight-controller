@@ -18,8 +18,14 @@ type SimulatorStateSub struct {
 	Count int `json:"count"`
 }
 
-type StateModCommand struct {
+type ContrStateModCommand struct {
 	ReadOnly bool
 	Modifier func(contrState *ControllerState, ret chan<- ControllerState)
 	Ret chan<- ControllerState
+}
+
+type SimStateModCommand struct {
+	ReadOnly bool
+	Modifier func(simState *SimulatorState, ret chan<- SimulatorState)
+	Ret chan<- SimulatorState
 }

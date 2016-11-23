@@ -7,18 +7,21 @@ import (
 )
 
 var upgrader = websocket.Upgrader{
-	CheckOrigin: func(r *http.Request) bool { return true},
+	CheckOrigin: func(r *http.Request) bool { return true },
 }
 
-func HandleWS(c *websocket.Conn) {
+func handle_ws(c *websocket.Conn) {
 
 	msgChannel := make(chan []byte, 1)
 	outputChannel := make(chan bool, 1)
-	stateChannel := make(chan StateModCommand, 10)
+	contrStateChannel := make(chan ContrStateModCommand, 10)
+	simStateChannel := make(chan SimStateModCommand, 10)
 
-	go manage_state(stateChannel)
-	go process_simstate(msgChannel, outputChannel, stateChannel)
-	go write(outputChannel, stateChannel, c)
+	go manage_sim_state(simStateChannel)
+	go update_sim_state(msgChannel,simStateChannel)
+	go manage_controller_state(contrStateChannel)
+	go process_simstate(outputChannel, contrStateChannel, simStateChannel)
+	go write(outputChannel, contrStateChannel, c)
 
 	for {
 		mt, message, err := c.ReadMessage()
@@ -44,5 +47,5 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 	defer c.Close()
 	log.Println("connected")
-	HandleWS(c)
+	handle_ws(c)
 }
