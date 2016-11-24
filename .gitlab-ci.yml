@@ -1,9 +1,7 @@
 before_script:
-  - add-apt-repository ppa:ubuntu-lxc/lxd-stable
-  - apt-get update -qq
-  - apt-get install -qq -y golang
   - go version
   
 build:
+  image: golang:latest
   script:
     - go build
