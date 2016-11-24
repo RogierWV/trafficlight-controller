@@ -19,16 +19,6 @@ func manage_controller_state(queue <-chan ContrStateModCommand) {
 	}
 }
 
-func set_all_red(contrState *ControllerState) {
-	for i := 0; i < len((*contrState).State); i++ {
-		if (*contrState).State[i].Status == "green" {
-			(*contrState).State[i] = ControllerStateSub{i, "orange"}
-		} else {
-			(*contrState).State[i] = ControllerStateSub{i, "red"}
-		}
-	}
-}
-
 func manage_sim_state(queue <-chan SimStateModCommand) {
 	simState := SimulatorState { State: make([]SimulatorStateSub, 50) }
 	for i := 0; i < len(simState.State); i++ {
