@@ -10,9 +10,9 @@ Controller for kruispunt assignment.
 
 ## Options
 Usage of ./controller:
-  `-addr string`
+- `-addr string`
     	http service address (default `"0.0.0.0:3000"`)
-  `-ft int`
+- `-ft int`
     	frame type (default `1`)
-  `-ontrtijd int`
+- `-ontrtijd int`
     	ontruimingstijd (default `2`)
