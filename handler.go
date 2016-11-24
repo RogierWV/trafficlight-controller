@@ -1,9 +1,9 @@
 package main
 
 import (
-	"net/http"
 	"github.com/gorilla/websocket"
 	"log"
+	"net/http"
 )
 
 var upgrader = websocket.Upgrader{
@@ -18,7 +18,7 @@ func handle_ws(c *websocket.Conn) {
 	simStateChannel := make(chan SimStateModCommand, 10)
 
 	go manage_sim_state(simStateChannel)
-	go update_sim_state(msgChannel,simStateChannel)
+	go update_sim_state(msgChannel, simStateChannel)
 	go manage_controller_state(contrStateChannel)
 	go process_simstate(outputChannel, contrStateChannel, simStateChannel)
 	go write(outputChannel, contrStateChannel, c)

@@ -8,9 +8,9 @@ package main
 
 import (
 	"flag"
-	"net/http"
 	"fmt"
 	"log"
+	"net/http"
 )
 
 // import _ "net/http/pprof"

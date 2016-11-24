@@ -8,10 +8,10 @@ func _timer(grID int, out chan<- bool, state chan<- ContrStateModCommand, colour
 	// if grID == -1 {
 	// 	return
 	// }
-	time.Sleep(3*time.Second)
-	state <- ContrStateModCommand {
+	time.Sleep(3 * time.Second)
+	state <- ContrStateModCommand{
 		false,
-		func(contrState *ControllerState, ret chan<- ControllerState){
+		func(contrState *ControllerState, ret chan<- ControllerState) {
 			for i := 0; i < len(lightGroups[grID]); i++ {
 				(*contrState).State[lightGroups[grID][i]].Status = colour
 			}
@@ -21,8 +21,8 @@ func _timer(grID int, out chan<- bool, state chan<- ContrStateModCommand, colour
 	out <- true
 }
 
-func timer (grID int, out chan<- bool, state chan<- ContrStateModCommand) {
+func timer(grID int, out chan<- bool, state chan<- ContrStateModCommand) {
 	_timer(grID, out, state, "yellow")
 	_timer(grID, out, state, "red")
-	time.Sleep(time.Duration(*redTime)*time.Second)
+	time.Sleep(time.Duration(*redTime) * time.Second)
 }

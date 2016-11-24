@@ -1,9 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"github.com/gorilla/websocket"
 	"log"
-	"encoding/json"
 )
 
 func write(msg <-chan bool, state chan ContrStateModCommand, c *websocket.Conn) {
@@ -11,7 +11,7 @@ func write(msg <-chan bool, state chan ContrStateModCommand, c *websocket.Conn) 
 	for {
 		<-msg
 		log.Println("start write")
-		state <- ContrStateModCommand{true,nil,read}
+		state <- ContrStateModCommand{true, nil, read}
 		message, err := json.Marshal(<-read)
 		if err != nil {
 			log.Println(err)
@@ -20,5 +20,5 @@ func write(msg <-chan bool, state chan ContrStateModCommand, c *websocket.Conn) 
 		if err != nil {
 			log.Println(err)
 		}
-	}	
+	}
 }
