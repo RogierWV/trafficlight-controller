@@ -15,8 +15,8 @@ import (
 
 // import _ "net/http/pprof"
 
-var addr = flag.String("addr", "0.0.0.0:3000", "http service address")
-var frameType = flag.Int("ft", 0x1, "frame type")
+var addr = flag.String("addr", "0.0.0.0:3000", "http service address (\"$ADDR:$PORT\"")
+var frameType = flag.Int("ft", 0x1, "frame type (1 = text, 2 = binary)")
 var redTime = flag.Int("ontrtijd", 2, "ontruimingstijd")
 
 func main() {
