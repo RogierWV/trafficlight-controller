@@ -5,12 +5,14 @@ import (
 	"log"
 )
 
+// Keeps controller state (lights), to be run in a separate goroutine
 func manage_controller_state(queue <-chan ContrStateModCommand) {
 	contrState := ControllerState{State: make([]ControllerStateSub, 50)}
-	set_all_red(&contrState)
+	for i := 0; i < len(contrState.State); i++ {
+		contrState.State[i] = ControllerStateSub{i, "red"}
+	}
 	for {
 		command := <-queue
-		// log.Println(command)
 		if command.ReadOnly {
 			go func() { command.Ret <- contrState }()
 		} else {
@@ -19,6 +21,7 @@ func manage_controller_state(queue <-chan ContrStateModCommand) {
 	}
 }
 
+// Keeps simulator state (counts), to be run in a separate goroutine
 func manage_sim_state(queue <-chan SimStateModCommand) {
 	simState := SimulatorState{State: make([]SimulatorStateSub, 50)}
 	for i := 0; i < len(simState.State); i++ {
@@ -35,6 +38,7 @@ func manage_sim_state(queue <-chan SimStateModCommand) {
 	}
 }
 
+// Updates simulator state based off of incoming json messages
 func update_sim_state(msg <-chan []byte, simState chan<- SimStateModCommand) {
 	for {
 		message := <-msg
