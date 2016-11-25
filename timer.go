@@ -5,9 +5,6 @@ import (
 )
 
 func _timer(grID int, out chan<- bool, state chan<- ContrStateModCommand, colour string) {
-	// if grID == -1 {
-	// 	return
-	// }
 	time.Sleep(3 * time.Second)
 	state <- ContrStateModCommand{
 		false,

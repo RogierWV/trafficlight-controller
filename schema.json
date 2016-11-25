@@ -1,0 +1,32 @@
+{
+ "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "state": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "trafficLight": {
+            "type": "integer",
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "red",
+              "orange",
+              "green"
+            ]
+          }
+        },
+        "required": [
+          "trafficLight",
+          "status"
+        ]
+      }
+    }
+  },
+  "required": [
+    "state"
+  ]
+}

@@ -1,0 +1,204 @@
+{
+    "state": [
+        {
+            "trafficLight": 0,
+            "status": "red"
+        },
+        {
+            "trafficLight": 1,
+            "status": "red"
+        },
+        {
+            "trafficLight": 2,
+            "status": "red"
+        },
+        {
+            "trafficLight": 3,
+            "status": "red"
+        },
+        {
+            "trafficLight": 4,
+            "status": "red"
+        },
+        {
+            "trafficLight": 5,
+            "status": "red"
+        },
+        {
+            "trafficLight": 6,
+            "status": "red"
+        },
+        {
+            "trafficLight": 7,
+            "status": "red"
+        },
+        {
+            "trafficLight": 8,
+            "status": "red"
+        },
+        {
+            "trafficLight": 9,
+            "status": "red"
+        },
+        {
+            "trafficLight": 10,
+            "status": "red"
+        },
+        {
+            "trafficLight": 11,
+            "status": "red"
+        },
+        {
+            "trafficLight": 12,
+            "status": "red"
+        },
+        {
+            "trafficLight": 13,
+            "status": "red"
+        },
+        {
+            "trafficLight": 14,
+            "status": "red"
+        },
+        {
+            "trafficLight": 15,
+            "status": "red"
+        },
+        {
+            "trafficLight": 16,
+            "status": "red"
+        },
+        {
+            "trafficLight": 17,
+            "status": "red"
+        },
+        {
+            "trafficLight": 18,
+            "status": "red"
+        },
+        {
+            "trafficLight": 19,
+            "status": "red"
+        },
+        {
+            "trafficLight": 20,
+            "status": "red"
+        },
+        {
+            "trafficLight": 21,
+            "status": "green"
+        },
+        {
+            "trafficLight": 22,
+            "status": "green"
+        },
+        {
+            "trafficLight": 23,
+            "status": "green"
+        },
+        {
+            "trafficLight": 24,
+            "status": "green"
+        },
+        {
+            "trafficLight": 25,
+            "status": "green"
+        },
+        {
+            "trafficLight": 26,
+            "status": "green"
+        },
+        {
+            "trafficLight": 27,
+            "status": "green"
+        },
+        {
+            "trafficLight": 28,
+            "status": "green"
+        },
+        {
+            "trafficLight": 29,
+            "status": "red"
+        },
+        {
+            "trafficLight": 30,
+            "status": "red"
+        },
+        {
+            "trafficLight": 31,
+            "status": "red"
+        },
+        {
+            "trafficLight": 32,
+            "status": "red"
+        },
+        {
+            "trafficLight": 33,
+            "status": "red"
+        },
+        {
+            "trafficLight": 34,
+            "status": "red"
+        },
+        {
+            "trafficLight": 35,
+            "status": "red"
+        },
+        {
+            "trafficLight": 36,
+            "status": "red"
+        },
+        {
+            "trafficLight": 37,
+            "status": "red"
+        },
+        {
+            "trafficLight": 38,
+            "status": "red"
+        },
+        {
+            "trafficLight": 39,
+            "status": "red"
+        },
+        {
+            "trafficLight": 40,
+            "status": "red"
+        },
+        {
+            "trafficLight": 41,
+            "status": "red"
+        },
+        {
+            "trafficLight": 42,
+            "status": "red"
+        },
+        {
+            "trafficLight": 43,
+            "status": "red"
+        },
+        {
+            "trafficLight": 44,
+            "status": "red"
+        },
+        {
+            "trafficLight": 45,
+            "status": "red"
+        },
+        {
+            "trafficLight": 46,
+            "status": "red"
+        },
+        {
+            "trafficLight": 47,
+            "status": "red"
+        },
+        {
+            "trafficLight": 48,
+            "status": "red"
+        },
+        {
+            "trafficLight": 49,
+            "status": "red"
+        }
+    ]
+}
