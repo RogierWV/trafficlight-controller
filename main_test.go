@@ -1,18 +1,18 @@
 package main
 
 import (
-	"testing"
-	"log"
-	"net/url"
 	"github.com/gorilla/websocket"
 	"github.com/xeipuuv/gojsonschema"
+	"log"
+	"net/url"
+	"testing"
 	"time"
 	// "bytes"
 )
 
 func TestWS(t *testing.T) {
 	go main()
-	time.Sleep(1*time.Second)
+	time.Sleep(1 * time.Second)
 	u := url.URL{Scheme: "ws", Host: *addr, Path: "/"}
 	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
 	if err != nil {
@@ -66,7 +66,7 @@ func TestWS(t *testing.T) {
 			}
 			doc := gojsonschema.NewStringLoader(string(message))
 			// log.Println(doc)
-			result, err := gojsonschema.Validate(schema,doc)
+			result, err := gojsonschema.Validate(schema, doc)
 			if err != nil {
 				panic(err.Error())
 			}
@@ -84,10 +84,10 @@ func TestWS(t *testing.T) {
 
 	c.WriteMessage(websocket.TextMessage, []byte(`{"state":[{"trafficLight":30,"count":10},{"trafficLight":21,"count":1}]}`))
 
-	time.Sleep(1*time.Second)
+	time.Sleep(1 * time.Second)
 
 	c.WriteMessage(websocket.TextMessage, []byte(`{"state":[{"trafficLight":30,"count":0},{"trafficLight":21,"count":0}]}`))
 
-	time.Sleep(20*time.Second)
+	time.Sleep(20 * time.Second)
 
 }
