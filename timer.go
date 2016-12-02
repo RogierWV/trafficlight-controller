@@ -9,8 +9,8 @@ func _timer(grID int, out chan<- bool, state chan<- ContrStateModCommand, colour
 	state <- ContrStateModCommand{
 		false,
 		func(contrState *ControllerState, ret chan<- ControllerState) {
-			for i := 0; i < len(lightGroups[grID]); i++ {
-				(*contrState).State[lightGroups[grID][i]].Status = colour
+			for i := 0; i < len(newLightGroups[grID]); i++ {
+				(*contrState).State[newLightGroups[grID][i].ID].Status = colour
 			}
 		},
 		nil,
