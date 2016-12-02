@@ -29,3 +29,9 @@ type SimStateModCommand struct {
 	Modifier func(simState *SimulatorState, ret chan<- SimulatorState)
 	Ret      chan<- SimulatorState
 }
+
+type WL struct {
+	ID     int
+	Weight int
+	Time   int
+}
