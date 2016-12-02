@@ -1,11 +1,9 @@
 package main
 
-// import (
-// 	"encoding/json"
-// 	"log"
-// )
+import "time"
 
 func process_simstate(out chan<- bool, contrState chan<- ContrStateModCommand, simState chan<- SimStateModCommand) {
+	time.Sleep(1*time.Second)
 	simStateRet := make(chan SimulatorState)
 	for {
 		simState <- SimStateModCommand{true, nil, simStateRet}
@@ -14,17 +12,6 @@ func process_simstate(out chan<- bool, contrState chan<- ContrStateModCommand, s
 		groupId := -1
 
 		tmpSimState := <-simStateRet
-
-		// for i := 0; i < len(lightGroups); i++ {
-		// 	total := 0
-		// 	for j := 0; j < len(lightGroups[i]); j++ {
-		// 		total += tmpSimState.State[lightGroups[i][j]].Count
-		// 	}
-		// 	if total > highestTotal {
-		// 		highestTotal = total
-		// 		groupId = i
-		// 	}
-		// }
 
 		for i := 0; i < len(newLightGroups); i++ {
 			total := 0

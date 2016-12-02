@@ -8,14 +8,6 @@ var train = 100
 
 var dummyWL = WL{0, 0, 0}
 
-// var lightGroups = [][]int{
-// 	{4, 10, 23, 24, 33, 34},
-// 	{2, 5, 6, 42},
-// 	{2, 6, 27, 28, 37, 38, 42, 45},
-// 	{31, 32, 33, 34, 35, 36, 37, 38},
-// 	{21, 22, 23, 24, 25, 26, 27, 28},
-// }
-
 var nodes = []WL{
 	dummyWL, // dummy node to ensure array indexing gets correct item
 	WL{1, car, 0},
@@ -64,6 +56,12 @@ var nodes = []WL{
 	dummyWL,
 	WL{45, train, 0},
 	WL{46, train, 0},
+	dummyWL,
+	dummyWL,
+	dummyWL,
+	dummyWL,
+	dummyWL,
+	dummyWL,
 }
 
 var newLightGroups = [][]WL{
@@ -112,11 +110,3 @@ var newLightGroups = [][]WL{
 		nodes[28],
 	},
 }
-
-// func initLights() {
-// 	newLightGroups = make([][]WeightedLightNode,5)
-// 	newLightGroups[0] = make([]WeightedLightNode,6)
-// 	newLightGroups[0][0] = WeightedLightNode{4,car,0}
-// 	newLightGroups[0][1] = WeightedLightNode{10,car,0}
-// 	newLightGroups[0][2] = WeightedLightNode{23,ped,0}
-// }
