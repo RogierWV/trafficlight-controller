@@ -1,10 +1,10 @@
 package main
 
-var car = 4
+var car = 10
 var ped = 1
 var bicycle = 2
 var bus = 40
-var train = 100
+var train = 1000
 
 var dummyWL = WL{0, 0, 0}
 
@@ -67,6 +67,12 @@ var nodes = []WL{
 var newLightGroups = [][]WL{
 	{
 		nodes[4],
+		nodes[23],
+		nodes[24],
+		nodes[33],
+		nodes[34],
+	},
+	{
 		nodes[10],
 		nodes[23],
 		nodes[24],
@@ -108,5 +114,23 @@ var newLightGroups = [][]WL{
 		nodes[26],
 		nodes[27],
 		nodes[28],
+	},
+	{
+		nodes[8],
+		nodes[9],
+		nodes[21],
+		nodes[22],
+		nodes[31],
+		nodes[32],
+	},
+	{
+		nodes[2],
+		nodes[6],
+		nodes[27],
+		nodes[28],
+		nodes[37],
+		nodes[38],
+		nodes[42],
+		nodes[46],
 	},
 }

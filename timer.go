@@ -19,7 +19,7 @@ func _timer(grID int, out chan<- bool, state chan<- ContrStateModCommand, colour
 }
 
 func timer(grID int, out chan<- bool, state chan<- ContrStateModCommand) {
-	_timer(grID, out, state, "yellow")
+	_timer(grID, out, state, "orange")
 	_timer(grID, out, state, "red")
 	time.Sleep(time.Duration(*redTime) * time.Second)
 }

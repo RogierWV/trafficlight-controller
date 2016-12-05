@@ -33,7 +33,7 @@ func handle_ws(c *websocket.Conn) {
 			log.Println("read: incorrect frame type")
 			break
 		}
-		// log.Printf("recv: %s", message)
+		log.Printf("recv: %s", message)
 
 		msgChannel <- message
 	}
