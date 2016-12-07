@@ -1,14 +1,9 @@
 package main
 
-import "time"
-
-/*
-dest := make([]int, len(src))
-perm := rand.Perm(len(src))
-for i, v := range perm {
-    dest[v] = src[i]
-}
-*/
+import (
+	"time"
+	"math/rand"
+)
 
 func process_simstate(out chan<- bool, contrState chan<- ContrStateModCommand, simState chan<- SimStateModCommand) {
 	time.Sleep(1 * time.Second)
@@ -21,40 +16,25 @@ func process_simstate(out chan<- bool, contrState chan<- ContrStateModCommand, s
 
 		tmpSimState := <-simStateRet
 
-		// temp, fix with above function for more fair scheduling
-		forward := true
-		if forward{
-			for i := 0; i < len(newLightGroups); i++ {
-				total := 0
-				for j := 0; j < len(newLightGroups[i]); j++ {
-					count := tmpSimState.State[newLightGroups[i][j].ID].Count
-					weight := newLightGroups[i][j].Weight
-					time := &newLightGroups[i][j].Time
-					(*time)++
-					total += count * weight * (*time)
-				}
-				if total > highestTotal {
-					highestTotal = total
-					groupId = i
-				}
+		tmpLights := make([][]WL, len(newLightGroups))
+		perm := rand.Perm(len(newLightGroups))
+		for i,v := range perm {
+			tmpLights[i] = newLightGroups[v]
+		}
+
+		for i := 0; i < len(tmpLights); i++ {
+			total := 0
+			for j := 0; j < len(tmpLights[i]); j++ {
+				count := tmpSimState.State[tmpLights[i][j].ID].Count
+				weight := tmpLights[i][j].Weight
+				time := &tmpLights[i][j].Time
+				(*time)++
+				total += count * weight * (*time)
 			}
-			forward = false
-		} else {
-			for i := len(newLightGroups); i >= 0; i-- {
-				total := 0
-				for j := 0; j < len(newLightGroups[i]); j++ {
-					count := tmpSimState.State[newLightGroups[i][j].ID].Count
-					weight := newLightGroups[i][j].Weight
-					time := &newLightGroups[i][j].Time
-					(*time)++
-					total += count * weight * (*time)
-				}
-				if total > highestTotal {
-					highestTotal = total
-					groupId = i
-				}
+			if total > highestTotal {
+				highestTotal = total
+				groupId = i
 			}
-			forward = true
 		}
 
 		if groupId != -1 {
