@@ -17,7 +17,7 @@ func process_simstate(out chan<- bool, contrState chan<- ContrStateModCommand, s
 		tmpSimState := <-simStateRet
 
 		tmpLights := make([][]WL, len(newLightGroups))
-		if randomise {
+		if *randomise {
 			perm := rand.Perm(len(newLightGroups))
 			for i,v := range perm {
 				tmpLights[i] = newLightGroups[v]
