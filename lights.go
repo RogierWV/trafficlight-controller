@@ -136,12 +136,15 @@ var newLightGroups = [][]WL{
 	},
 	{
 		nodes[1],
-		// nodes[5],
 		nodes[6],
 		nodes[46],
 	},
 	{
 		nodes[7],
 		nodes[3],
+		nodes[23],
+		nodes[24],
+		nodes[33],
+		nodes[34],
 	},
 }
