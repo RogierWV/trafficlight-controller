@@ -21,15 +21,15 @@ type SimulatorStateSub struct {
 }
 
 type ContrStateModCommand struct {
-	ReadOnly bool
-	Modifier func(contrState *ControllerState, ret chan<- ControllerState)
-	Ret      chan<- ControllerState
+	ReadOnly bool															// implies no function
+	Modifier func(contrState *ControllerState, ret chan<- ControllerState)	// can be nil if ReadOnly
+	Ret      chan<- ControllerState 										// can be nil if no return value is required
 }
 
 type SimStateModCommand struct {
-	ReadOnly bool
-	Modifier func(simState *SimulatorState, ret chan<- SimulatorState)
-	Ret      chan<- SimulatorState
+	ReadOnly bool															// implies no function
+	Modifier func(simState *SimulatorState, ret chan<- SimulatorState)		// can be nil if ReadOnly
+	Ret      chan<- SimulatorState											// can be nil if no return value is required
 }
 
 type WL struct {

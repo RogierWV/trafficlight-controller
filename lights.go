@@ -1,5 +1,6 @@
 package main
 
+// weights
 var car = 10
 var ped = 1
 var bicycle = 2
@@ -132,5 +133,15 @@ var newLightGroups = [][]WL{
 		nodes[38],
 		nodes[42],
 		nodes[46],
+	},
+	{
+		nodes[1],
+		// nodes[5],
+		nodes[6],
+		nodes[46],
+	},
+	{
+		nodes[7],
+		nodes[3],
 	},
 }

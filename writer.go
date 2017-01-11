@@ -6,6 +6,7 @@ import (
 	"log"
 )
 
+// writes to client on input on the msg channel, reads state via state channel
 func write(msg <-chan bool, state chan ContrStateModCommand, c *websocket.Conn) {
 	read := make(chan ControllerState, 1)
 	for {
