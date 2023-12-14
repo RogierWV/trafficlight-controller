@@ -1,12 +1,13 @@
 package main
 
 import (
-	"github.com/gorilla/websocket"
-	"github.com/xeipuuv/gojsonschema"
 	"log"
 	"net/url"
 	"testing"
 	"time"
+
+	"github.com/gorilla/websocket"
+	"github.com/xeipuuv/gojsonschema"
 	// "bytes"
 )
 
@@ -20,38 +21,7 @@ func TestWS(t *testing.T) {
 	}
 	defer c.Close()
 
-	schema := gojsonschema.NewStringLoader(`{
-	 "$schema": "http://json-schema.org/draft-04/schema#",
-	  "type": "object",
-	  "properties": {
-		"state": {
-		  "type": "array",
-		  "items": {
-			"type": "object",
-			"properties": {
-			  "trafficLight": {
-				"type": "integer",
-			  },
-			  "status": {
-				"type": "string",
-				"enum": [
-				  "red",
-				  "orange",
-				  "green"
-				]
-			  }
-			},
-			"required": [
-			  "trafficLight",
-			  "status"
-			]
-		  }
-		}
-	  },
-	  "required": [
-		"state"
-	  ]
-	}`)
+	schema := gojsonschema.NewReferenceLoader("file://./schema.json")
 	// log.Println(schema)
 	done := make(chan struct{})
 

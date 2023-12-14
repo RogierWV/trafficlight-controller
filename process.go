@@ -1,8 +1,8 @@
 package main
 
 import (
-	"time"
 	"math/rand"
+	"time"
 )
 
 func process_simstate(out chan<- bool, contrState chan<- ContrStateModCommand, simState chan<- SimStateModCommand) {
@@ -19,7 +19,7 @@ func process_simstate(out chan<- bool, contrState chan<- ContrStateModCommand, s
 		tmpLights := make([][]WL, len(newLightGroups))
 		if *randomise {
 			perm := rand.Perm(len(newLightGroups))
-			for i,v := range perm {
+			for i, v := range perm {
 				tmpLights[i] = newLightGroups[v]
 			}
 		} else {

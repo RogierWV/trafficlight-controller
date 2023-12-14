@@ -8,7 +8,7 @@
         "type": "object",
         "properties": {
           "trafficLight": {
-            "type": "integer",
+            "type": "integer"
           },
           "status": {
             "type": "string",
