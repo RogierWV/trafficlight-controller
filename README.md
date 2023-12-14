@@ -8,6 +8,8 @@ Controller for kruispunt assignment.
 ## Build
 `go build` to compile for current OS/arch or optionally set `GOOS` for different OS or `GOARCH` for different CPU architecture (see [this](http://dave.cheney.net/2015/08/22/cross-compilation-with-go-1-5)).
 
+Alternatively, use Docker (or Podman) by calling `docker build -t $TAG .`, which will perform a two stage build to minimize final image size.
+
 ## Usage
 Usage of ./controller:
 - `-addr string`

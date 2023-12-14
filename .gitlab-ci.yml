@@ -1,6 +1,5 @@
 before_script:
   - go version
-  - go get github.com/gorilla/websocket
   
 build:
   image: golang:latest
