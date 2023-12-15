@@ -9,22 +9,23 @@ func process_simstate(out chan<- bool, contrState chan<- ContrStateModCommand, s
 	time.Sleep(1 * time.Second)
 	simStateRet := make(chan SimulatorState)
 	for {
-		simState <- SimStateModCommand{true, nil, simStateRet}
+		// log.Println("process iteration")
+		simState <- SimStateModCommand{true, nil, simStateRet} // request current simstate
 
 		highestTotal := 0
 		groupId := -1
 
-		tmpSimState := <-simStateRet
-
-		tmpLights := make([][]WL, len(newLightGroups))
-		if *randomise {
-			perm := rand.Perm(len(newLightGroups))
+		tmpLights := make([][]WL, len(newLightGroups)) // build up arrays for current iteration
+		if *randomise {                                // -r flag enabled
+			perm := rand.Perm(len(newLightGroups)) // randomize the lights
 			for i, v := range perm {
 				tmpLights[i] = newLightGroups[v]
 			}
 		} else {
-			tmpLights = newLightGroups
+			tmpLights = newLightGroups // set to the values from lights.go
 		}
+
+		tmpSimState := <-simStateRet // actually fetch current simstate
 
 		for i := 0; i < len(tmpLights); i++ {
 			total := 0
@@ -33,13 +34,16 @@ func process_simstate(out chan<- bool, contrState chan<- ContrStateModCommand, s
 				weight := tmpLights[i][j].Weight
 				time := &tmpLights[i][j].Time
 				(*time)++
-				total += count * weight * (*time)
+				// log.Printf("{\"count\": %d, \"weight\": %d, \"time\": %d}", count, weight, *time)
+				total += count * weight * (*time) // compute priority
 			}
-			if total > highestTotal {
+			if total > highestTotal { // this iteration has the highest priority so far
 				highestTotal = total
 				groupId = i
 			}
 		}
+
+		// log.Printf("highestTotal = %d\ngroupId = %d", highestTotal, groupId)
 
 		if groupId != -1 {
 			contrState <- ContrStateModCommand{

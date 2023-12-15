@@ -56,6 +56,15 @@ func update_sim_state(msg <-chan []byte, simState chan<- SimStateModCommand) {
 			log.Println(err)
 		}
 
+		zeroes := 0
+		for i := 0; i < len(tmpSimState.State); i++ {
+			if tmpSimState.State[i].Count == 0 {
+				zeroes++
+			}
+		}
+
+		log.Printf("tmpSimState length: %d\nzeroes: %d", len(tmpSimState.State), zeroes)
+
 		simState <- SimStateModCommand{
 			false,
 			func(simState *SimulatorState, ret chan<- SimulatorState) {
